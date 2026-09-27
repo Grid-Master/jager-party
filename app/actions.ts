@@ -36,6 +36,7 @@ export async function planEvent(
   const when = String(formData.get("when") ?? "").trim();
   const place = String(formData.get("place") ?? "").trim();
   const note = String(formData.get("note") ?? "").trim();
+  const mentions = formData.get("mentionAll") === "1";
 
   if (!eventKinds.includes(kind as (typeof eventKinds)[number])) {
     return { ok: false, message: "Выбери тип мероприятия" };
@@ -62,6 +63,7 @@ export async function planEvent(
       whenLabel,
       place,
       note,
+      mentions,
     });
     return { ok: true, message: "Мероприятие отправлено в чат" };
   } catch (error) {

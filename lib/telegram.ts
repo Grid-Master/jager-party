@@ -140,6 +140,7 @@ export async function sendEventAnnouncement(event: {
   whenLabel: string;
   place: string;
   note: string;
+  mentions: boolean;
 }) {
   const style = eventStyles[event.kind];
   const lines = [
@@ -156,13 +157,14 @@ export async function sendEventAnnouncement(event: {
     lines.push("", `<blockquote>${escapeHtml(event.note)}</blockquote>`);
   }
 
-  if (groupMentions().length > 0) {
+  if (event.mentions && groupMentions().length > 0) {
     lines.push("", "👇 <b>Зовём всех</b>");
   }
 
   await sendTelegramMessage(lines.join("\n"), {
     html: true,
     stickerEmoji: style.sticker,
+    mentions: event.mentions,
   });
 }
 
