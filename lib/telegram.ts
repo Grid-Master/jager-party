@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { groupMentions } from "@/lib/participants";
 
 const TEST_TEXT = "скоро узнаешь";
@@ -166,6 +168,37 @@ export async function sendEventAnnouncement(event: {
     stickerEmoji: style.sticker,
     mentions: event.mentions,
   });
+}
+
+export async function sendMorningGreeting(caption: string) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+
+  if (!token || !chatId) {
+    throw new Error("Не заданы TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID");
+  }
+
+  const bytes = await readFile(
+    path.join(process.cwd(), "public", "images", "tiraspol.jpg"),
+  );
+  const form = new FormData();
+  form.set("chat_id", chatId);
+  form.set("caption", caption);
+  form.set("parse_mode", "HTML");
+  form.set("photo", new Blob([bytes], { type: "image/jpeg" }), "tiraspol.jpg");
+
+  const response = await fetch(
+    `https://api.telegram.org/bot${token}/sendPhoto`,
+    { method: "POST", body: form },
+  );
+  const data = (await response.json()) as {
+    ok: boolean;
+    description?: string;
+  };
+
+  if (!response.ok || !data.ok) {
+    throw new Error(data.description ?? "Telegram не принял фото");
+  }
 }
 
 export function isTestCommand(text: unknown) {
