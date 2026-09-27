@@ -1,3 +1,6 @@
+import { PlanEvent } from "@/app/plan-event";
+import { SendTestButton } from "@/app/send-test-button";
+
 const plans = [
   {
     title: "Прогулки",
@@ -49,13 +52,13 @@ const plans = [
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-dvh w-full min-w-0 items-center justify-center overflow-hidden pt-[max(2.5rem,env(safe-area-inset-top))] pr-[max(1.25rem,env(safe-area-inset-right))] pb-[max(2.5rem,env(safe-area-inset-bottom))] pl-[max(1.25rem,env(safe-area-inset-left))]">
+    <main className="relative flex min-h-dvh w-full min-w-0 flex-col overflow-x-clip overflow-y-auto pt-[max(2.5rem,env(safe-area-inset-top))] pr-[max(1.25rem,env(safe-area-inset-right))] pb-[max(2.5rem,env(safe-area-inset-bottom))] pl-[max(1.25rem,env(safe-area-inset-left))]">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--glow),transparent_58%),radial-gradient(ellipse_at_bottom,var(--glow-2),transparent_52%)]"
       />
 
-      <section className="relative w-full min-w-0 max-w-md sm:rounded-4xl sm:border sm:border-card-border sm:bg-card sm:px-8 sm:py-10 sm:shadow-[0_24px_80px_-32px_rgba(0,0,0,0.45)] sm:backdrop-blur-xl">
+      <section className="relative mx-auto my-auto w-full min-w-0 max-w-md sm:rounded-4xl sm:border sm:border-card-border sm:bg-card sm:px-8 sm:py-10 sm:shadow-[0_24px_80px_-32px_rgba(0,0,0,0.45)] sm:backdrop-blur-xl">
         <p className="text-center text-[0.7rem] font-semibold tracking-[0.32em] text-muted uppercase">
           Jager Party
         </p>
@@ -67,7 +70,7 @@ export default function Home() {
           </span>
         </div>
 
-        <h1 className="mt-5 max-w-full text-center font-display text-[clamp(1.5rem,8vw,2.75rem)] leading-[0.95] font-medium tracking-tight">
+        <h1 className="mt-5 max-w-full text-center font-display text-3xl leading-[0.95] font-medium tracking-tight sm:text-5xl">
           В
           <br />
           разработке
@@ -100,6 +103,9 @@ export default function Home() {
             </li>
           ))}
         </ul>
+
+        <PlanEvent />
+        <SendTestButton />
       </section>
     </main>
   );

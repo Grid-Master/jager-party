@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# telegram members seen in the group
+/data
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
