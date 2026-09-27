@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     await rememberUpdateMembers(update);
 
     if (isTestCommand(update?.message?.text)) {
-      await sendTelegramMessage(testMessage());
+      await sendTelegramMessage(testMessage(), { mentions: false });
     }
 
     return NextResponse.json({ ok: true });

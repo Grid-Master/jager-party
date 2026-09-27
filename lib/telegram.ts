@@ -105,7 +105,7 @@ async function postMessage(token: string, chatId: string, text: string) {
 
 export async function sendTelegramMessage(
   text: string,
-  options?: { html?: boolean; stickerEmoji?: string },
+  options?: { html?: boolean; stickerEmoji?: string; mentions?: boolean },
 ) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -118,7 +118,7 @@ export async function sendTelegramMessage(
     await sendMoodSticker(token, chatId, options.stickerEmoji);
   }
 
-  const mentions = groupMentions();
+  const mentions = options?.mentions === false ? [] : groupMentions();
   const body = options?.html ? text : escapeHtml(text);
   const firstBatch = mentions.slice(0, MENTION_LIMIT);
   const message = [body, firstBatch.join(" ")].filter(Boolean).join("\n\n");

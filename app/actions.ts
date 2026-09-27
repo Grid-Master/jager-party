@@ -1,14 +1,18 @@
 "use server";
 
-import {
-  sendEventAnnouncement,
-  sendTelegramMessage,
-  testMessage,
-} from "@/lib/telegram";
+import { sendEventAnnouncement, sendTelegramMessage } from "@/lib/telegram";
 
-export async function sendTestToChat() {
+export async function sendChatMessage(
+  _prev: string | null,
+  formData: FormData,
+) {
+  const text = String(formData.get("text") ?? "").trim();
+
+  if (!text) return "Напиши сообщение";
+  if (text.length > 1000) return "Слишком длинное сообщение";
+
   try {
-    await sendTelegramMessage(testMessage());
+    await sendTelegramMessage(text, { mentions: false });
     return "Отправлено в чат";
   } catch (error) {
     console.error("Telegram send error:", error);
