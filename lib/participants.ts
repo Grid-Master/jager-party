@@ -25,6 +25,7 @@ export const PARTICIPANTS: Participant[] = [
   "ivanaleniin",
   "ssalantan",
   "vidsheff",
+  "Ameriiqano",
 ];
 
 function escapeHtml(value: string) {
