@@ -1,3 +1,4 @@
+import { Greeting } from "@/app/greeting";
 import { PlanScreens } from "@/app/plan-event";
 
 export default function Home() {
@@ -14,18 +15,7 @@ export default function Home() {
           Jager Party
         </p>
 
-        <div className="mt-6 flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-card-border bg-card px-3 py-1 text-xs font-medium text-foreground">
-            <span className="status-dot size-1.5 rounded-full bg-accent" />
-            Скоро
-          </span>
-        </div>
-
-        <h1 className="mt-5 max-w-full text-center font-display text-3xl leading-[0.95] font-medium tracking-tight sm:text-5xl">
-          В
-          <br />
-          разработке
-        </h1>
+        <Greeting />
 
         <p className="mx-auto mt-4 max-w-[18rem] text-center text-base leading-7 text-muted sm:max-w-xs sm:text-lg sm:leading-8">
           Здесь будут наши прогулки, кино, походы и другие мероприятия.
