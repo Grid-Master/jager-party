@@ -15,7 +15,7 @@ export async function sendChatMessage(
   if (!text) return "Напиши сообщение";
   if (text.length > 1000) return "Слишком длинное сообщение";
 
-  const message = author ? `${text}\n\n(автор - ${author})` : text;
+  const message = author ? `${text}\n\n(сообщение от - ${author})` : text;
 
   try {
     await sendTelegramMessage(message, { mentions: false });
