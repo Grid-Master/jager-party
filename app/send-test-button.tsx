@@ -2,12 +2,15 @@
 
 import { useActionState } from "react";
 import { sendChatMessage } from "@/app/actions";
+import { useTelegramName } from "@/app/telegram-user";
 
 export function SendTestButton() {
   const [message, action, pending] = useActionState(sendChatMessage, null);
+  const author = useTelegramName();
 
   return (
     <form action={action} className="mt-3">
+      <input type="hidden" name="author" value={author} />
       <label className="block text-sm font-medium" htmlFor="chat-message">
         Сообщение в чат
       </label>

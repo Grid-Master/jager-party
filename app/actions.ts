@@ -7,12 +7,18 @@ export async function sendChatMessage(
   formData: FormData,
 ) {
   const text = String(formData.get("text") ?? "").trim();
+  const author = String(formData.get("author") ?? "")
+    .replace(/[\r\n]/g, " ")
+    .trim()
+    .slice(0, 80);
 
   if (!text) return "Напиши сообщение";
   if (text.length > 1000) return "Слишком длинное сообщение";
 
+  const message = author ? `${text}\n\n(автор - ${author})` : text;
+
   try {
-    await sendTelegramMessage(text, { mentions: false });
+    await sendTelegramMessage(message, { mentions: false });
     return "Отправлено в чат";
   } catch (error) {
     console.error("Telegram send error:", error);
